@@ -1,6 +1,4 @@
-INFO-533 Project 3
-
-The project that we have created is a web application that has the ability to take uploaded files from a user and allow them to query the words in these files and display the matching terms in a highlighting representation. 
+# Search Engine
 
 Requirements
 
@@ -23,21 +21,21 @@ nltk.download('stopwords')  # If stopwords are used
 
 
 Installation and Running the Application
-# Install virtualenv if not already installed
+**Install virtualenv if not already installed**
 pip install virtualenv
 
-# Create a virtual environment
+**Create a virtual environment**
 virtualenv venv
 
-# Activate the virtual environment
-# On Windows
-venv\Scripts\activate
+**Activate the virtual environment**
+On Windows
+ venv\Scripts\activate
 
-# On Unix or MacOS
-source venv/bin/activate
+On Unix or MacOS
+ source venv/bin/activate
 
-# Install all required packages
-pip install -r requirements.txt
+**Install all required packages**
+ pip install -r requirements.txt
 
 1. Project Setup
 Once the environment is ready with all the dependencies installed, the next steps involve setting up the Django project itself.
