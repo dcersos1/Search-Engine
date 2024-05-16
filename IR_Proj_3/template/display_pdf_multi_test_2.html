@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Embedded PDF Viewer</title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'new_styles_4.css' %}">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    #pdf-container {
+      width: 100%;
+      height: auto;
+      position: relative; 
+    }
+
+    canvas {
+      display: block;
+      margin: auto;
+      border: 1px solid black;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <h1>Document {{ document }}</h1>
+    <h3>Query: {{ query }}</h3>
+    <a href="javascript:history.back()">Go Back to the Search Results</a>
+  </div>
+  <div>&nbsp;</div>
+
+  <div id="pdf-container"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
+  <script>
+    var pdfBase64 = "{{ pdf_content }}"; 
+    var searchQuery = {{ query|safe }}; 
+
+    var searchQuery = "\\b" + {{ query|safe }} + "\\b";
+    var len_q = parseInt("{{ len_q }}");
+
+    var pdfData = atob(pdfBase64);
+    var pdfDataArray = new Uint8Array(pdfData.length);
+    for (var i = 0; i < pdfData.length; i++) {
+      pdfDataArray[i] = pdfData.charCodeAt(i);
+    }
+
+    pdfjsLib.getDocument({ data: pdfDataArray }).promise.then(function(pdf) {
+      var pdfContainer = document.getElementById('pdf-container');
+      
+      
+      for (var pageNumber = 1; pageNumber <= pdf.numPages; pageNumber++) {
+        pdf.getPage(pageNumber).then(function(page) {
+          var scale = 1.5;
+          var viewport = page.getViewport({ scale: scale });
+
+          
+          var canvas = document.createElement('canvas');
+          var context = canvas.getContext('2d');
+          canvas.height = viewport.height;
+          canvas.width = viewport.width;
+
+          
+          var renderContext = {
+            canvasContext: context,
+            viewport: viewport
+          };
+          page.render(renderContext).promise.then(function() {
+            
+            page.getTextContent().then(function(textContent) {
+              
+              textContent.items.forEach(function(textItem) {
+                var text = textItem.str;
+                
+                var regex = new RegExp(searchQuery, 'gi');
+                var match;
+                while ((match = regex.exec(text)) !== null) {
+                  var matchIndex = match.index;
+                  
+                  if ((matchIndex === 0 || /\s/.test(text.charAt(matchIndex - 1))) &&
+                      (matchIndex + match[0].length === text.length || /\s/.test(text.charAt(matchIndex + match[0].length)))) {
+                    
+                    var x = (textItem.transform[4] * scale) + context.measureText(text.substring(0, matchIndex)).width;
+                    var y = (viewport.height - (textItem.transform[5] * scale));
+                    var width = context.measureText(match[0]).width * scale;
+                    var height = textItem.height * scale;
+                    
+                    
+                    context.fillStyle = 'rgba(255, 255, 0, 0.5)'; 
+                    context.fillRect(x, y - height, width, height);
+                  }
+                }
+              });
+            });
+          });
+          pdfContainer.appendChild(canvas);
+        });
+      }
+    });
+  </script>
+</body>
+</html>

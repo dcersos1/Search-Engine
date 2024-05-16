@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Display Doc</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'new_styles_4.css' %}">
+</head>
+<body>
+    <div>
+        <h1>Document {{ document }}</h1>
+        <h3>Query: {{ query }}</h3>
+        <h3>Total Query Occurences: {{ count }} </h3>
+        <h3>Positions (Indexing from 0 and including all positions where a query occurs): {{ positions }} </h3>
+        <a href="javascript:history.back()">Go Back to the Search Results</a>
+    </div>
+    <div>&nbsp;</div>
+    <div>
+        {{ html_content|safe }}
+    </div>
+</body>
+</html>

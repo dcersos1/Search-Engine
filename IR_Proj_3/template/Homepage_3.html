@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search and File Upload</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'new_styles_4.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Search and File Upload</h1>
+        
+        <!-- File Upload Form -->
+        <form id="uploadForm" method="POST" enctype="multipart/form-data" action="{% url 'file_upload' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="fileInput">Choose files to upload:</label>
+                <input type="file" class="form-control-file" id="fileInput" name="files" multiple accept=".pdf,.txt,.doc,.docx,.json">
+            </div>
+            <button type="submit" class="btn btn-primary">Upload File</button>
+        </form>
+
+        <hr>
+
+        <!-- Search Form -->
+        <form id="searchForm" method="GET" action="{% url 'search_results' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="searchQuery">Enter your search query:</label><br>
+                <label for="multiquery">Use a ; to seperate for multiple queries</label><br>
+                <input type="text" class="form-control" id="searchQuery" name="query" placeholder="Search...">
+            </div>
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+        
+
+        <div id="uploadMessage" class="message"></div>
+        <div id="numFilesUploaded" class="num-files"></div>
+        <div id="searchResults" class="results"></div>
+    </div>
+    <div>
+        <form action="{% url 'reset_database' %}" method="post">
+            {% csrf_token %}
+            <button type="submit">Reset Database</button>
+            {% if reset_success_message %}
+                <p>{{ reset_success_message }}</p>
+            {% endif %}
+        </form>
+    </div>
+    <!-- JavaScript for File Upload and Search -->
+    <script src="{% static 'js/upload.js' %}"></script>
+    <script src="{% static 'js/search.js' %}"></script>
+</body>
+</html>

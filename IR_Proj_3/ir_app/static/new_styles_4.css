@@ -1,0 +1,90 @@
+/* Google Fonts Import */
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,600,700&display=swap');
+
+body {
+    font-family: 'Open Sans', Arial, sans-serif;
+    background: linear-gradient(to right, #2a9d8f, #264653); /* Updated gradient colors */
+    color: #ffffff; /* Making text color consistent with a dark background */
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    text-align: center;
+    padding: 50px 20px;
+}
+
+/* Search Form */
+#searchForm {
+    margin-bottom: 30px; /* Add margin bottom for spacing */
+}
+
+#searchForm .form-group {
+    margin-bottom: 20px; /* Add margin bottom for spacing */
+}
+
+#searchForm label {
+    font-size: 1.2em; /* Increase label font size */
+}
+
+#searchForm input[type="text"] {
+    width: 100%;
+    max-width: 500px;
+    padding: 10px;
+    font-size: 1em;
+    border-radius: 5px;
+    border: 2px solid #e9c46a; /* Stylish border color */
+    background: transparent;
+    color: #fff;
+}
+
+#searchForm .btn-primary {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #8b5a2b; /* Brown color resembling tree bark */
+    color: #fff; /* Text color */
+    text-decoration: none; /* Remove underline */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Show pointer cursor on hover */
+}
+
+#searchForm .btn-primary:hover {
+    background-color: #634529; /* Darker brown on hover */
+}
+
+/* Reset Database Button */
+.reset-form {
+    margin-top: 30px; /* Add margin top for spacing */
+}
+
+.reset-form button[type="submit"] {
+    padding: 10px 20px;
+    background-color: #dc3545; /* Red color */
+    border-color: #dc3545;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #fff; /* Text color */
+    font-size: 1em; /* Button font size */
+}
+
+.reset-form button[type="submit"]:hover {
+    background-color: #c82333; /* Darker on hover */
+    border-color: #bd2130;
+}
+
+/* Additional Link Aesthetic */
+a {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #8b5a2b; /* Brown color resembling tree bark */
+    color: #fff; /* Text color */
+    text-decoration: none; /* Remove underline */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Show pointer cursor on hover */
+}
+
+a:hover {
+    background-color: #634529; /* Darker brown on hover */
+}
